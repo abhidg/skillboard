@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        margin: auto;
+        max-width: 38rem;
+        padding: 2rem;
+      }
+
+      ul {
+        columns: 3;
+      }
+      ul li {
+        margin-bottom: 20px;
+        list-style-type: none;
+      }
+      pre {
+        padding: 15px;
+        background-color: #f0f0f0;
+      }
+
+      span.skill {
+        border: 1px solid silver;
+        border-radius: 10px;
+        padding: 4px;
+        margin-left: 5px;
+        background-color: azure;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Skillboard</h1>
+    <div id="allskills"></div>
+    <div id="people"></div>
+    <script type="text/javascript">
+      const STAR = "★";
+      const SKILLS = {
+        "Arya Stark": [
+          "fencing+++",
+          "sword-fighting+++",
+          "wit++",
+          "diplomacy+",
+        ],
+        "Cersei Lannister": [
+          "politics++",
+          "diplomacy",
+          "military+",
+          "leadership+",
+        ],
+        "Jaime Lannister": ["politics+", "diplomacy++", "sword-fighting+++"],
+        "Tyrion Lannister": ["politics++", "diplomacy+++", "language+++"],
+        "Petyr Baelish": ["politics++", "manipulation+++"],
+        "Jon Snow": ["sword-fighting++", "leadership+++"],
+        "Daenerys Targaryen": ["leadership+++", "dragons+++", "diplomacy+"],
+      };
+
+      const collectSkills = () => {
+        const allSkills = new Set();
+        Object.values(SKILLS).forEach((ss) => {
+          ss.map((s) => s.replaceAll("+", "")).forEach(
+            allSkills.add,
+            allSkills
+          );
+        });
+        return Array.from(allSkills);
+      };
+
+      const skillHTML = () => {
+        const allSkills = collectSkills();
+        const html = allSkills
+          .map((s) => `<li><span class="skill ${s}">${s}</span></li>`)
+          .join("\n");
+        return `<ul>${html}</ul>`;
+      };
+
+      const peopleSkillHTML = (skill) => {
+        const s = skill.replaceAll("+", "");
+        const stars = skill.replace(s, "").replaceAll("+", STAR);
+        return `<span class="skill ${s}">${s} ${stars}</span>`;
+      };
+      const personHTML = (person) => {
+        const skillset = SKILLS[person];
+        return (
+          `<h2>${person}</h2>` + skillset.map(peopleSkillHTML).join(" ") + "\n"
+        );
+      };
+
+      document.getElementById("people").innerHTML = Object.keys(SKILLS)
+        .map(personHTML)
+        .join("\n");
+      document.getElementById("allskills").innerHTML = skillHTML();
+    </script>
+  </body>
+</html>
