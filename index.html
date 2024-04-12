@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -11,8 +12,25 @@
         padding: 2rem;
       }
 
+      summary {
+        background-color: #f0f0f0;
+        padding: 5px;
+        margin: 0;
+      }
+      details {
+        padding: 5px 15px;
+        border: 1px solid gray;
+        background-color: #f0f0f0;
+      }
+      p {
+        line-height: 1.5;
+      }
       ul {
         columns: 3;
+      }
+      h1 { margin-bottom: -10px}
+      header {
+        margin-bottom: 30px;
       }
       ul li {
         margin-bottom: 20px;
@@ -23,21 +41,72 @@
         background-color: #f0f0f0;
       }
 
-      span.skill {
+      span.skill,
+      a.skill {
         border: 1px solid silver;
         border-radius: 10px;
         padding: 4px;
         margin-left: 5px;
-        background-color: azure;
+        background-color: #f0f0f0;
+      }
+      a.highlight,
+      span.highlight,
+      span.highlightwanted {
+        background-color: #333;
+        color: white;
+      }
+      span.wanted {
+        background-color: white;
+        color: gray;
+      }
+
+      a.skill:hover {
+        cursor: pointer;
+      }
+      footer {
+        margin-top: 30px !important;
+        border-top: 1px solid silver;
+        padding-top: 5px;
+        font-size: 14px;
+        color: gray;
       }
     </style>
   </head>
   <body>
-    <h1>Skillboard</h1>
+    <header>
+      <h1>Skillboard</h1>
+      <p>Discover skills in a small group</p>
+    </header>
     <div id="allskills"></div>
+    <p><button id="clear">Clear</button></p>
+    <p>
+      Click above to show people with particular skills. Click on a skill again to toggle.<br>
+      Skills without stars are those that the person wants to learn.
+    </p>
+    <details>
+      <summary>How to add yourself</summary>
+      <p>
+        This is a single page HTML file which has the Javascript code bundled in
+        (use view source to see the code). To add yourself, edit the
+        <code>SKILLS</code> object in the Javascript code. Create a key in the
+        object, and list the skills, with + denoting the level of skill. If
+        there is a skill you want to learn but do not yet know, add the skill
+        without any + after it. Skills should be a single word without spaces,
+        hyphens are allowed.
+      </p>
+      <p>
+        Check that the file loads locally and commit to the Git repository, or
+        serve it on any webserver.
+      </p>
+    </details>
     <div id="people"></div>
+    <footer>
+      source repository at
+      <a href="https://github.com/abhidg/skillboard"
+        >https://github.com/abhidg/skillboard</a
+      >
+    </footer>
     <script type="text/javascript">
-      const STAR = "★";
       const SKILLS = {
         "Arya Stark": [
           "fencing+++",
@@ -58,40 +127,93 @@
         "Daenerys Targaryen": ["leadership+++", "dragons+++", "diplomacy+"],
       };
 
-      const collectSkills = () => {
-        const allSkills = new Set();
-        Object.values(SKILLS).forEach((ss) => {
-          ss.map((s) => s.replaceAll("+", "")).forEach(
-            allSkills.add,
-            allSkills
-          );
+      const collectSkills = (data) => {
+        const out = new Set();
+        Object.values(data).forEach((ss) => {
+          ss.map((s) => s.replaceAll("+", "")).forEach(out.add, out);
         });
-        return Array.from(allSkills);
+        return Array.from(out);
+      };
+
+      // state
+      const selectedSkills = [];
+      const allSkills = collectSkills(SKILLS);
+      const viewSource = () => {
+        window.location = "view-source:" + window.location.href;
+      };
+
+      const clear = () => {
+        selectedSkills.length = 0;
+        allSkills.forEach((s) => {
+          document.getElementById(s).classList.remove("highlight");
+        });
+        render();
+      };
+
+      const skillOnClick = (s) => {
+        // toggle skill by clicking
+        if (selectedSkills.includes(s)) {
+          selectedSkills.pop(s);
+        } else {
+          selectedSkills.push(s);
+        }
+        document.getElementById(s).classList.toggle("highlight");
+        render();
+      };
+
+      const render = () => {
+        document.getElementById("people").innerHTML = Object.keys(SKILLS)
+          .map(personHighlightedSkills(selectedSkills))
+          .join("\n");
       };
 
       const skillHTML = () => {
-        const allSkills = collectSkills();
         const html = allSkills
-          .map((s) => `<li><span class="skill ${s}">${s}</span></li>`)
+          .map(
+            (s) =>
+              `<li><a id="${s}" class="skill" onClick="skillOnClick('${s}')">${s}</a></li>`
+          )
           .join("\n");
         return `<ul>${html}</ul>`;
       };
 
-      const peopleSkillHTML = (skill) => {
+      const getSkills = (person) =>
+        SKILLS[person].map((s) => s.replaceAll("+", ""));
+
+      const peopleSkillHTML = (skills) => (skill) => {
         const s = skill.replaceAll("+", "");
-        const stars = skill.replace(s, "").replaceAll("+", STAR);
-        return `<span class="skill ${s}">${s} ${stars}</span>`;
+        const stars = skill.replace(s, "").replaceAll("+", "★");
+        const highlight = skills.includes(skill.replaceAll("+", ""))
+          ? "highlight"
+          : "";
+        const wanted = stars ? "" : "wanted";
+        return `<span class="skill ${highlight}${wanted}">${s}${
+          stars ? " " + stars : ""
+        }</span>`;
       };
+
       const personHTML = (person) => {
         const skillset = SKILLS[person];
         return (
-          `<h2>${person}</h2>` + skillset.map(peopleSkillHTML).join(" ") + "\n"
+          `<h2>${person}</h2>` +
+          skillset.map(peopleSkillHTML([])).join(" ") +
+          "\n"
         );
       };
 
-      document.getElementById("people").innerHTML = Object.keys(SKILLS)
-        .map(personHTML)
-        .join("\n");
+      const personHighlightedSkills = (skills) => (person) => {
+        if (skills.length === 0) return personHTML(person);
+        const skillset = getSkills(person);
+        const intersection = skills.filter((s) => skillset.includes(s));
+        return intersection.length > 0
+          ? `<h2>${person}</h2>` +
+              SKILLS[person].map(peopleSkillHTML(intersection)).join(" ") +
+              "\n"
+          : "";
+      };
+
+      document.getElementById("clear").addEventListener("click", clear);
+      render();
       document.getElementById("allskills").innerHTML = skillHTML();
     </script>
   </body>
