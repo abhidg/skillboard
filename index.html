@@ -1,8 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <script type="text/javascript">
+      // add yourself by changing this object, + denotes skill level
+      // absence of + indicates a skill you want to learn
+      const SKILLS = {
+        "Arya Stark": [
+          "fencing+++",
+          "sword-fighting+++",
+          "wit++",
+          "diplomacy+",
+        ],
+        "Cersei Lannister": [
+          "politics++",
+          "diplomacy",
+          "military+",
+          "leadership+",
+        ],
+        "Jaime Lannister": ["politics+", "diplomacy++", "sword-fighting+++"],
+        "Tyrion Lannister": ["politics++", "diplomacy+++", "language+++"],
+        "Petyr Baelish": ["politics++", "manipulation+++"],
+        "Jon Snow": ["sword-fighting++", "leadership+++"],
+        "Daenerys Targaryen": ["leadership+++", "dragons+++", "diplomacy+"],
+      };
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Single page HTML file to discover skills in a small group"
+    />
+    <title>Skillboard</title>
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -24,6 +52,9 @@
       }
       p {
         line-height: 1.5;
+      }
+      p.skillset {
+        line-height: 2;
       }
       ul {
         columns: 3;
@@ -69,7 +100,6 @@
         border-top: 1px solid silver;
         padding-top: 5px;
         font-size: 14px;
-        color: gray;
       }
     </style>
   </head>
@@ -109,26 +139,6 @@
       >
     </footer>
     <script type="text/javascript">
-      const SKILLS = {
-        "Arya Stark": [
-          "fencing+++",
-          "sword-fighting+++",
-          "wit++",
-          "diplomacy+",
-        ],
-        "Cersei Lannister": [
-          "politics++",
-          "diplomacy",
-          "military+",
-          "leadership+",
-        ],
-        "Jaime Lannister": ["politics+", "diplomacy++", "sword-fighting+++"],
-        "Tyrion Lannister": ["politics++", "diplomacy+++", "language+++"],
-        "Petyr Baelish": ["politics++", "manipulation+++"],
-        "Jon Snow": ["sword-fighting++", "leadership+++"],
-        "Daenerys Targaryen": ["leadership+++", "dragons+++", "diplomacy+"],
-      };
-
       const collectSkills = (data) => {
         const out = new Set();
         Object.values(data).forEach((ss) => {
@@ -194,9 +204,9 @@
       const personHTML = (person) => {
         const skillset = SKILLS[person];
         return (
-          `<h2>${person}</h2>` +
+          `<h2>${person}</h2><p class="skillset">` +
           skillset.map(peopleSkillHTML([])).join(" ") +
-          "\n"
+          "</p>\n"
         );
       };
 
