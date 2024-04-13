@@ -49,21 +49,20 @@
         border-radius: 10px;
         padding: 4px;
         margin-left: 5px;
-        background-color: #f0f0f0;
+        background-color: lightyellow;
+      }
+      a.skill:hover {
+        background-color: gold;
+        border: 1px solid #111;
+        cursor: pointer;
       }
       a.highlight,
       span.highlight,
       span.highlightwanted {
-        background-color: #333;
-        color: white;
+        background-color: gold;
       }
       span.wanted {
         background-color: white;
-        color: gray;
-      }
-
-      a.skill:hover {
-        cursor: pointer;
       }
       footer {
         margin-top: 30px !important;
@@ -141,9 +140,6 @@
       // state
       const selectedSkills = [];
       const allSkills = collectSkills(SKILLS);
-      const viewSource = () => {
-        window.location = "view-source:" + window.location.href;
-      };
 
       const clear = () => {
         selectedSkills.length = 0;
@@ -215,9 +211,9 @@
           : "";
       };
 
+      document.getElementById("allskills").innerHTML = skillHTML();
       document.getElementById("clear").addEventListener("click", clear);
       render();
-      document.getElementById("allskills").innerHTML = skillHTML();
     </script>
   </body>
 </html>
