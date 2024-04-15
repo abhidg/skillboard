@@ -80,17 +80,17 @@
         border-radius: 10px;
         padding: 4px;
         margin-left: 5px;
-        background-color: lightyellow;
+        background-color: azure;
       }
       a.skill:hover {
-        background-color: gold;
+        background-color: cyan;
         border: 1px solid #111;
         cursor: pointer;
       }
       a.highlight,
       span.highlight,
       span.highlightwanted {
-        background-color: gold;
+        background-color: turquoise;
       }
       span.wanted {
         background-color: white;
@@ -100,6 +100,34 @@
         border-top: 1px solid silver;
         padding-top: 5px;
         font-size: 14px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: black;
+          color: #f0f0f0;
+        }
+        span.skill,
+        a.skill {
+          color: white;
+          background-color: darkblue;
+        }
+        span.wanted {
+          background-color: #444;
+        }
+        a.skill:hover {
+          background-color: purple;
+        }
+        details,
+        summary {
+          background-color: #353535;
+          color: white;
+        }
+        a.highlight,
+        span.highlight,
+        span.highlightwanted {
+          background-color: blueviolet;
+        }
       }
     </style>
   </head>
