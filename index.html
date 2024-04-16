@@ -1,269 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="text/javascript">
-      // add yourself by changing this object, + denotes skill level
-      // absence of + indicates a skill you want to learn
-      const SKILLS = {
-        "Abhishek Dasgupta": [
-          "python+++",
-          "cpp+",
-          "rust",
-          "climate",
-          "typescript++",
-          "react+",
-          "skillboard-making+++",
-          "cloud-computing++",
-          "machine-learning++",
-          "sysadmin++"
-        ],
-        "Alasdair Wilson": [
-          "astrophysics+++"
-        ],
-        "Fergus Cooper": ["cpp+++"],
-        "Jim O'Donnell": ["citizen-science+++"],
-        "John Brittain": ["snakemake+++"],
-        "Martin Robinson": ["wasm+++", "rust++"],
-        "Matt Jaquiery": ["python++", "django++", "typescript+++", "vuejs++", "react++", "snakemake+", "cloud-computing+", "hpc+", "machine-learning+", "rust"],
-        "Mihaela Duta": ["python++", "machine-learning+++"],
-        "Oliver King": ["computer-vision+++"],
-        "Pip Liggins": ["exoplanet-volcanoes+++"],
-        "Rowan Nicholls": ["biomedical-engineering+++"]
-      };
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Single page HTML file to discover skills in a small group"
-    />
-    <title>Skillboard</title>
-    <style>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+          name="description"
+          content="Single page HTML file to discover skills in a small group"
+  />
+  <title>Skillboard</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+      margin: auto;
+      max-width: 38rem;
+      padding: 2rem;
+    }
+
+    summary {
+      background-color: #f0f0f0;
+      padding: 5px;
+      margin: 0;
+    }
+    details {
+      padding: 5px 15px;
+      border: 1px solid gray;
+      background-color: #f0f0f0;
+    }
+    p {
+      line-height: 1.5;
+    }
+    p.skillset {
+      line-height: 2.5em;
+    }
+    ul {
+      columns: 3;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-row-gap: 20px;
+    }
+    h1 {
+      margin-bottom: -10px;
+    }
+    header {
+      margin-bottom: 30px;
+    }
+    ul li {
+      list-style-type: none;
+      line-height: 2em;
+    }
+    pre {
+      padding: 15px;
+      background-color: #f0f0f0;
+    }
+
+    span.skill,
+    a.skill {
+      border: 1px solid silver;
+      border-radius: 10px;
+      padding: 4px;
+      margin-left: 5px;
+      background-color: azure;
+      cursor: pointer;
+    }
+    a.skill:hover {
+      background-color: cyan;
+      border: 1px solid #111;
+      cursor: pointer;
+    }
+    a.highlight,
+    span.highlight {
+      border: 1px solid violet;
+      box-shadow: violet 0px 0px 5px;
+    }
+    span.wanted {
+      background-color: white;
+    }
+    footer {
+      margin-top: 30px !important;
+      border-top: 1px solid silver;
+      padding-top: 5px;
+      font-size: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        margin: auto;
-        max-width: 38rem;
-        padding: 2rem;
+        background-color: black;
+        color: #f0f0f0;
       }
-
-      summary {
-        background-color: #f0f0f0;
-        padding: 5px;
-        margin: 0;
-      }
-      details {
-        padding: 5px 15px;
-        border: 1px solid gray;
-        background-color: #f0f0f0;
-      }
-      p {
-        line-height: 1.5;
-      }
-      p.skillset {
-        line-height: 2.5em;
-      }
-      ul {
-        columns: 3;
-        padding-left: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-row-gap: 20px;
-      }
-      h1 {
-        margin-bottom: -10px;
-      }
-      header {
-        margin-bottom: 30px;
-      }
-      ul li {
-        list-style-type: none;
-        line-height: 2em;
-      }
-      pre {
-        padding: 15px;
-        background-color: #f0f0f0;
-      }
-
       span.skill,
       a.skill {
-        border: 1px solid silver;
-        border-radius: 10px;
-        padding: 4px;
-        margin-left: 5px;
-        background-color: azure;
-        cursor: pointer;
-      }
-      a.skill:hover {
-        background-color: cyan;
-        border: 1px solid #111;
-        cursor: pointer;
-      }
-      a.highlight,
-      span.highlight {
-        border: 1px solid violet;
-        box-shadow: violet 0px 0px 5px;
+        color: white;
+        background-color: darkblue;
       }
       span.wanted {
-        background-color: white;
+        background-color: #444;
       }
-      footer {
-        margin-top: 30px !important;
-        border-top: 1px solid silver;
-        padding-top: 5px;
-        font-size: 14px;
+      a.skill:hover {
+        background-color: purple;
       }
-
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: black;
-          color: #f0f0f0;
-        }
-        span.skill,
-        a.skill {
-          color: white;
-          background-color: darkblue;
-        }
-        span.wanted {
-          background-color: #444;
-        }
-        a.skill:hover {
-          background-color: purple;
-        }
-        details,
-        summary {
-          background-color: #353535;
-          color: white;
-        }
-        a.highlight,
-        span.highlight,
-        span.highlightwanted {
-          background-color: blueviolet;
-        }
+      details,
+      summary {
+        background-color: #353535;
+        color: white;
       }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Skillboard</h1>
-      <p>Discover skills in a small group</p>
-    </header>
-    <div id="allskills"></div>
-    <p><button id="clear">Clear</button></p>
-    <p>
-      Click above to show people with particular skills. Click on a skill again
-      to toggle.<br />
-      Skills without stars are those that the person wants to learn.
-    </p>
-    <details>
-      <summary>How to add yourself</summary>
-      <p>
-        This is a single page HTML file which has the Javascript code bundled in
-        (use view source to see the code). To add yourself, edit the
-        <code>SKILLS</code> object in the Javascript code. Create a key in the
-        object, and list the skills, with + denoting the level of skill. If
-        there is a skill you want to learn but do not yet know, add the skill
-        without any + after it. Skills should be a single word without spaces,
-        hyphens are allowed.
-      </p>
-      <p>
-        Check that the file loads locally and commit to the Git repository, or
-        serve it on any webserver.
-      </p>
-    </details>
-    <div id="people"></div>
-    <footer>
-      source repository at
-      <a href="https://github.com/OxfordRSE/skillboard"
-        >https://github.com/OxfordRSE/skillboard</a
-      >
-    </footer>
-    <script type="text/javascript">
-      const collectSkills = (data) => {
-        const out = new Set();
-        Object.values(data).forEach((ss) => {
-          ss.map((s) => s.replaceAll("+", "")).forEach(out.add, out);
-        });
-        return Array.from(out);
-      };
+      a.highlight,
+      span.highlight,
+      span.highlightwanted {
+        background-color: blueviolet;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Skillboard</h1>
+  <p>Discover skills in a small group</p>
+</header>
+<div id="allskills"></div>
+<p><button id="clear">Clear</button></p>
+<p>
+  Click above to show people with particular skills. Click on a skill again
+  to toggle.<br />
+  Skills without stars are those that the person wants to learn.
+</p>
+<details>
+  <summary>How to add yourself</summary>
+  <p>
+    This is a single page HTML application which has the Javascript code bundled in
+    (use view source to see the code). The skill definitions are stored in an accompanying
+    <code>skills.json</code> file. To add yourself, edit the <code>skills.json</code> file
+    and create a key in the object, and list the skills, with + denoting the level of skill.
+    If there is a skill you want to learn but do not yet know, add the skill
+    without any + after it. Skills should be a single word without spaces,
+    hyphens are allowed.
+  </p>
+  <p>
+    Check that the file loads locally and commit to the Git repository, or
+    serve it on any webserver.
+  </p>
+</details>
+<div id="people"></div>
+<footer>
+  source repository at
+  <a href="https://github.com/OxfordRSE/skillboard"
+  >https://github.com/OxfordRSE/skillboard</a
+  >
+</footer>
+<script type="text/javascript">
+  // state
+  let selectedSkills = [];
+  let SKILLS = null;
+  let allSkills = [];
 
-      // state
-      let selectedSkills = [];
-      const allSkills = collectSkills(SKILLS);
+  // load skills.json
+  fetch("skills.json")
+          .then((r) => r.json())
+          .then((json) => SKILLS = json);
 
-      const clear = () => {
-        selectedSkills.length = 0;
-        allSkills.forEach((s) => {
-          document.getElementById(s).classList.remove("highlight");
-        });
-        render();
-      };
+  // functions
+  const collectSkills = (data) => {
+    const out = new Set();
+    Object.values(data).forEach((ss) => {
+      ss.map((s) => s.replaceAll("+", "")).forEach(out.add, out);
+    });
+    return Array.from(out);
+  };
 
-      const skillOnClick = (s) => {
-        // toggle skill by clicking
-        if (selectedSkills.includes(s)) {
-          selectedSkills = selectedSkills.filter((x) => x !== s);
-        } else {
-          selectedSkills.push(s);
-        }
-        document.getElementById(s).classList.toggle("highlight");
-        render();
-      };
+  const clear = () => {
+    selectedSkills.length = 0;
+    allSkills.forEach((s) => {
+      document.getElementById(s).classList.remove("highlight");
+    });
+    render();
+  };
 
-      const render = () => {
-        document.getElementById("people").innerHTML = Object.keys(SKILLS)
-          .map(personHighlightedSkills(selectedSkills))
-          .join("\n");
-      };
+  const skillOnClick = (s) => {
+    // toggle skill by clicking
+    if (selectedSkills.includes(s)) {
+      selectedSkills = selectedSkills.filter((x) => x !== s);
+    } else {
+      selectedSkills.push(s);
+    }
+    document.getElementById(s).classList.toggle("highlight");
+    render();
+  };
 
-      const skillHTML = () => {
-        const html = allSkills
-          .map(
-            (s) =>
-              `<li><a id="${s}" class="skill" onClick="skillOnClick('${s}')">${s}</a></li>`
-          )
-          .join("\n");
-        return `<ul>${html}</ul>`;
-      };
-
-      const getSkills = (person) =>
-        SKILLS[person].map((s) => s.replaceAll("+", ""));
-
-      const peopleSkillHTML = (skills) => (skill) => {
-        const s = skill.replaceAll("+", "");
-        const stars = skill.replace(s, "").replaceAll("+", "★");
-        const highlight = skills.includes(skill.replaceAll("+", ""))
-          ? "highlight"
-          : "";
-        const wanted = stars ? "" : "wanted";
-        return `<span class="skill ${highlight} ${wanted}" onClick="skillOnClick('${s}')">${s}${
-          stars ? " " + stars : ""
-        }</span>`;
-      };
-
-      const personHTML = (person) => {
-        const skillset = SKILLS[person];
-        return (
-          `<h2>${person}</h2><p class="skillset">` +
-          skillset.map(peopleSkillHTML([])).join(" ") +
-          "</p>\n"
-        );
-      };
-
-      const personHighlightedSkills = (skills) => (person) => {
-        if (skills.length === 0) return personHTML(person);
-        const skillset = getSkills(person);
-        const intersection = skills.filter((s) => skillset.includes(s));
-        return intersection.length > 0
-          ? `<h2>${person}</h2><p class="skillset">` +
-              SKILLS[person].map(peopleSkillHTML(intersection)).join(" ") +
-              "</p>\n"
-          : "";
-      };
-
+  const render = (initial = false) => {
+    if (initial) {
+      if (!SKILLS) {
+        setTimeout(() => render(true), 100);
+      }
+    }
+    if (SKILLS) {
+      allSkills = collectSkills(SKILLS);
       document.getElementById("allskills").innerHTML = skillHTML();
-      document.getElementById("clear").addEventListener("click", clear);
-      render();
-    </script>
-  </body>
+      document.getElementById("people").innerHTML = Object.keys(SKILLS)
+              .map(personHighlightedSkills(selectedSkills))
+              .join("\n");
+    }
+  };
+
+  const skillHTML = () => {
+    const html = allSkills
+            .map(
+                    (s) =>
+                            `<li><a id="${s}" class="skill" onClick="skillOnClick('${s}')">${s}</a></li>`
+            )
+            .join("\n");
+    return `<ul>${html}</ul>`;
+  };
+
+  const getSkills = (person) =>
+          SKILLS[person].map((s) => s.replaceAll("+", ""));
+
+  const peopleSkillHTML = (skills) => (skill) => {
+    const s = skill.replaceAll("+", "");
+    const stars = skill.replace(s, "").replaceAll("+", "★");
+    const highlight = skills.includes(skill.replaceAll("+", ""))
+            ? "highlight"
+            : "";
+    const wanted = stars ? "" : "wanted";
+    return `<span class="skill ${highlight} ${wanted}" onClick="skillOnClick('${s}')">${s}${
+            stars ? " " + stars : ""
+    }</span>`;
+  };
+
+  const personHTML = (person) => {
+    const skillset = SKILLS[person];
+    return (
+            `<h2>${person}</h2><p class="skillset">` +
+            skillset.map(peopleSkillHTML([])).join(" ") +
+            "</p>\n"
+    );
+  };
+
+  const personHighlightedSkills = (skills) => (person) => {
+    if (skills.length === 0) return personHTML(person);
+    const skillset = getSkills(person);
+    const intersection = skills.filter((s) => skillset.includes(s));
+    return intersection.length > 0
+            ? `<h2>${person}</h2><p class="skillset">` +
+            SKILLS[person].map(peopleSkillHTML(intersection)).join(" ") +
+            "</p>\n"
+            : "";
+  };
+
+  document.getElementById("clear").addEventListener("click", clear);
+  render(true);
+</script>
+</body>
 </html>

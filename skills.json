@@ -1,0 +1,55 @@
+{
+  "Abhishek Dasgupta": [
+    "python+++",
+    "cpp+",
+    "rust",
+    "climate",
+    "typescript++",
+    "react+",
+    "skillboard-making+++",
+    "cloud-computing++",
+    "machine-learning++",
+    "sysadmin++"
+  ],
+  "Alasdair Wilson": [
+    "astrophysics+++"
+  ],
+  "Fergus Cooper": [
+    "cpp+++"
+  ],
+  "Jim O'Donnell": [
+    "citizen-science+++"
+  ],
+  "John Brittain": [
+    "snakemake+++"
+  ],
+  "Martin Robinson": [
+    "wasm+++",
+    "rust++"
+  ],
+  "Matt Jaquiery": [
+    "python++",
+    "django++",
+    "typescript+++",
+    "vuejs++",
+    "react++",
+    "snakemake+",
+    "cloud-computing+",
+    "hpc+",
+    "machine-learning+",
+    "rust"
+  ],
+  "Mihaela Duta": [
+    "python++",
+    "machine-learning+++"
+  ],
+  "Oliver King": [
+    "computer-vision+++"
+  ],
+  "Pip Liggins": [
+    "exoplanet-volcanoes+++"
+  ],
+  "Rowan Nicholls": [
+    "biomedical-engineering+++"
+  ]
+}
