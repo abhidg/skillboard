@@ -61,7 +61,7 @@
         line-height: 1.5;
       }
       p.skillset {
-        line-height: 2;
+        line-height: 2.5em;
       }
       ul {
         columns: 3;
@@ -99,9 +99,9 @@
         cursor: pointer;
       }
       a.highlight,
-      span.highlight,
-      span.highlightwanted {
-        background-color: turquoise;
+      span.highlight {
+        border: 1px solid violet;
+        box-shadow: violet 0px 0px 5px;
       }
       span.wanted {
         background-color: white;
@@ -235,7 +235,7 @@
           ? "highlight"
           : "";
         const wanted = stars ? "" : "wanted";
-        return `<span class="skill ${highlight}${wanted}">${s}${
+        return `<span class="skill ${highlight} ${wanted}">${s}${
           stars ? " " + stars : ""
         }</span>`;
       };
