@@ -242,9 +242,9 @@
         const skillset = getSkills(person);
         const intersection = skills.filter((s) => skillset.includes(s));
         return intersection.length > 0
-          ? `<h2>${person}</h2>` +
+          ? `<h2>${person}</h2><p class="skillset">` +
               SKILLS[person].map(peopleSkillHTML(intersection)).join(" ") +
-              "\n"
+              "</p>\n"
           : "";
       };
 
