@@ -92,6 +92,7 @@
         padding: 4px;
         margin-left: 5px;
         background-color: azure;
+        cursor: pointer;
       }
       a.skill:hover {
         background-color: cyan;
@@ -235,7 +236,7 @@
           ? "highlight"
           : "";
         const wanted = stars ? "" : "wanted";
-        return `<span class="skill ${highlight} ${wanted}">${s}${
+        return `<span class="skill ${highlight} ${wanted}" onClick="skillOnClick('${s}')">${s}${
           stars ? " " + stars : ""
         }</span>`;
       };
