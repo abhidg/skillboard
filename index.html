@@ -176,11 +176,11 @@
       };
 
       // state
-      const selectedSkills = [];
+      const selectedSkills = new Set();
       const allSkills = collectSkills(SKILLS);
 
       const clear = () => {
-        selectedSkills.length = 0;
+        selectedSkills.clear();
         allSkills.forEach((s) => {
           document.getElementById(s).classList.remove("highlight");
         });
@@ -189,10 +189,10 @@
 
       const skillOnClick = (s) => {
         // toggle skill by clicking
-        if (selectedSkills.includes(s)) {
-          selectedSkills.pop(s);
+        if (selectedSkills.has(s)) {
+          selectedSkills.delete(s);
         } else {
-          selectedSkills.push(s);
+          selectedSkills.add(s);
         }
         document.getElementById(s).classList.toggle("highlight");
         render();
@@ -239,9 +239,9 @@
       };
 
       const personHighlightedSkills = (skills) => (person) => {
-        if (skills.length === 0) return personHTML(person);
+        if (skills.size === 0) return personHTML(person);
         const skillset = getSkills(person);
-        const intersection = skills.filter((s) => skillset.includes(s));
+        const intersection = [...skills].filter((s) => skillset.includes(s));
         return intersection.length > 0
           ? `<h2>${person}</h2><p class="skillset">` +
               SKILLS[person].map(peopleSkillHTML(intersection)).join(" ") +
