@@ -65,6 +65,10 @@
       }
       ul {
         columns: 3;
+        padding-left: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-row-gap: 20px;
       }
       h1 {
         margin-bottom: -10px;
@@ -73,8 +77,8 @@
         margin-bottom: 30px;
       }
       ul li {
-        margin-bottom: 20px;
         list-style-type: none;
+        line-height: 2em;
       }
       pre {
         padding: 15px;
