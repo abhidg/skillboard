@@ -36,19 +36,18 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif;
         margin: auto;
-        max-width: 38rem;
+        max-width: 70rem;
         padding: 2rem;
+        font-size: 0.95rem;
       }
 
       summary {
-        background-color: #f0f0f0;
         padding: 5px;
         margin: 0;
       }
       details {
         padding: 5px 15px;
-        border: 1px solid gray;
-        background-color: #f0f0f0;
+        border-left: 2px solid gray;
       }
       p {
         line-height: 1.5;
@@ -57,7 +56,9 @@
         line-height: 2;
       }
       ul {
-        columns: 3;
+        columns: auto;
+        list-style: none;
+        margin-left: -3rem;
       }
       h1 {
         margin-bottom: -10px;
@@ -68,6 +69,7 @@
       ul li {
         margin-bottom: 20px;
         list-style-type: none;
+        display: inline-block;
       }
       pre {
         padding: 15px;
@@ -102,7 +104,7 @@
         margin-top: 30px !important;
         border-top: 1px solid silver;
         padding-top: 5px;
-        font-size: 14px;
+        font-size: 0.8rem;
       }
 
       @media (prefers-color-scheme: dark) {
@@ -123,7 +125,6 @@
         }
         details,
         summary {
-          background-color: #353535;
           color: white;
         }
         a.highlight,
